@@ -1,60 +1,45 @@
 #pragma once
 #include <raylib.h>
-#include <string>
-#include <fstream>
-#include <iostream>
-#include <vector>
-#include "hero.hpp"
-#include "enemy.hpp"
-
-enum BattleTurn
-{
-    TURN_START,
-    PLAYER_TURN,
-    RESOLVE_TURN,
-    TURN_DELAY
-};
 
 enum GameState
 {
-    CHARACTER_SELECT,
-    BATTLE
+    INTRO_ROOM,
+    CHARACTER_SELECT
+};
+
+enum IntroState
+{
+    WALK_IN,
+    WALK_TO_TABLE,
+    WALK_DOWN,
+    DIALOGUE,
+    FINISHED
 };
 
 class Game
 {
-public:
-    Game();
-    ~Game();
-    void Update();
-    void Draw();
+    public:
+        Game();
+        ~Game();
 
-    float timeLeft;
-    bool run;
+        void Update();
+        void Draw();
 
-private:
-    int windowWidth;
-    int windowHeight;
-    int selectedHero;
+    private:
+        int selectedCharacter;
+        int chosenCharacter;
+        int dialogueIndex;
 
-    void DrawWorldUI();
+        GameState currentState;
+        IntroState introState;
 
-    std::vector<std::string> battleQuotes;
+        Texture2D brandySprite;
+        Texture2D brandonSprite;
 
-    std::string heroDialogue;
-    std::string enemyDialogue;
-
-    float dialogueTimer;
-    float nextDialogueTime;
-
-    void TriggerRandomDialogue();
-    void DrawDialogueBox(std::string text, int x, int y);
-
-    GameState currentState;
-    BattleTurn currentTurn;
-    float turnTimer;
-    std::string battleMessage;
-    Hero hero;
-    Hero heroPreview;
-    Enemy enemy;
+        Texture2D introRoom;
+        Texture2D characterSelect;
+        
+        Vector2 brandonPos;
+        Vector2 brandonTarget;
+        Vector2 brandyPos;
 };

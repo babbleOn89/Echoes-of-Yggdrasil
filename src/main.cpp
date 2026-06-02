@@ -3,25 +3,23 @@
 
 int main()
 {
-    int windowWidth = 1600;
-    int windowHeight = 400;
-
-    InitWindow(windowWidth, windowHeight, "Stupid Wizards");
-
+    InitWindow(1400, 800, "Echos of Yggdrasil");
     SetTargetFPS(60);
 
     Game game;
 
-    while(WindowShouldClose() == false)
+    while(!WindowShouldClose())
     {
         game.Update();
-        
+
         BeginDrawing();
         ClearBackground(BLACK);
+
         game.Draw();
 
         EndDrawing();
     }
+
     CloseWindow();
 
     return 0;

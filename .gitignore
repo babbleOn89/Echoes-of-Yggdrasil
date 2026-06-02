@@ -15,7 +15,9 @@ StupidWizardsAttacks.txt
 attackslist.txt
 story.md
 norsespells.md
-old/
+docs/department_stuff/
+docs/ScreenShots/
+assets/old/
 
 # Dev junk
 *.log

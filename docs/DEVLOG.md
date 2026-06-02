@@ -124,3 +124,37 @@ clear && g++ *.cpp -o StupidWizards -lraylib
 Combat framework is functional and ready for expansion.
 
 END SESSION
+
+
+# DATE: 2026-06-01
+
+# Session Length
+
+~3 hours
+
+# Goals For Session
+* implement character movement for intro
+* implement dialogue
+* transition to title/character select
+
+# Completed
+* All of it because technically I started doing this yesterday and suck at keeping up with this.
+
+# Problems Encountered
+
+
+# Solutions / Discoveries
+
+# Ideas For Later
+* clean up dialogue box
+* create a delay before title screen
+
+# Commands / Build Notes
+* the usual
+
+# Files Modified
+game.cpp, game.hpp
+
+# End Session Notes
+* I need to change the prototype artwork.
+END SESSION
