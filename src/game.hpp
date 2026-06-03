@@ -4,7 +4,9 @@
 enum GameState
 {
     INTRO_ROOM,
-    CHARACTER_SELECT
+    CHARACTER_SELECT,
+    LOSS_SCENE,
+    FARMSTEAD
 };
 
 enum IntroState
@@ -24,6 +26,9 @@ class Game
 
         void Update();
         void Draw();
+        void HandleInput();
+
+        //Player player;
 
     private:
         int selectedCharacter;
@@ -42,4 +47,7 @@ class Game
         Vector2 brandonPos;
         Vector2 brandonTarget;
         Vector2 brandyPos;
+        
+        Vector2 playerPos;
+        float playerSpeed;
 };

@@ -15,6 +15,9 @@ Game::Game()
     brandonPos = {75.0f, -50.0f};
     brandonTarget = {700.0f, 5.0f};
     brandyPos = {350.0f, 150.0f};
+
+    playerPos = {300.0f, 300.0f};
+    playerSpeed = 3.0f;
     
     selectedCharacter = 0;
     chosenCharacter = -1;
@@ -99,8 +102,23 @@ void Game::Update()
         if(IsKeyPressed(KEY_ENTER))
         {
             chosenCharacter = selectedCharacter;
+            
+            currentState = LOSS_SCENE;
         }
     }
+    else if(currentState == LOSS_SCENE)
+    {
+        if(IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE))
+        {
+            currentState = FARMSTEAD;
+        }
+    }
+
+    else if(currentState == FARMSTEAD)
+    {
+
+    }
+
 }
 void Game::Draw()
 {
@@ -146,8 +164,6 @@ void Game::Draw()
             if(dialogueIndex == 5)
                 DrawText("Brandy: You're on!", 130, 630, 22, WHITE);
         }
-
-        DrawText("PRESS ENTER", 560, 720, 30, WHITE);
     }
     else if(currentState == CHARACTER_SELECT)
     {
@@ -169,4 +185,54 @@ void Game::Draw()
             DrawRectangleLines(1000, 600, 250, 150, RED);
         }
     }
+
+    else if(currentState == LOSS_SCENE)
+    {
+        if(chosenCharacter == 0)
+        {
+            DrawText("Brandy: aw man!", 130, 630, 22, WHITE);
+        }
+        else if(chosenCharacter == 1)
+        {
+            DrawText("Brandon: aw man!", 130, 630, 22, WHITE);
+        }
+    }
+
+    else if(currentState == FARMSTEAD)
+    {
+        DrawRectangle(0, 0, 1400, 800, GREEN); 
+
+        if(chosenCharacter == 0)
+        {
+            DrawTextureEx(brandySprite, playerPos, 0.0f, brandyScale, WHITE);
+        }
+        else if(chosenCharacter == 1)
+        {
+            DrawTextureEx(brandonSprite, playerPos, 0.0f, brandonScale, WHITE);
+        }
+    }
 }
+
+void Game::HandleInput()
+{
+    if(currentState == FARMSTEAD)
+    {
+        if(IsKeyDown(KEY_W))
+        {
+            playerPos.y -= playerSpeed;
+        }
+        else if(IsKeyDown(KEY_S))
+        {
+            playerPos.y += playerSpeed;
+        }
+        else if(IsKeyDown(KEY_A))
+        {
+            playerPos.x -= playerSpeed;
+        }
+        else if(IsKeyDown(KEY_D))
+        {
+            playerPos.x += playerSpeed;
+        }
+    }
+}
+            

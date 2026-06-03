@@ -158,3 +158,39 @@ game.cpp, game.hpp
 # End Session Notes
 * I need to change the prototype artwork.
 END SESSION
+
+# DATE: 2026-06-02
+
+# Session Length 
+* 4.5 hours
+
+# Goals For Session
+* Transition from Character select to Tutorial
+* Maintain the selected character
+* implement that movement though
+
+# Completed
+* D) All of the above
+
+# Problems Encountered
+* I wrote Handle_Input in my .cpp and HandleInput everywhere else...
+
+# Solutions / Discoveries
+* Found the bugger and corrected it.
+
+# Ideas For Later
+* Actual farmhouse background
+* Animals
+* dialogue
+* inventory
+
+# Commands / Build Notes
+
+# Files Modified
+* game.cpp, game.hpp, main.cpp
+
+# End Session Notes
+* probably focus more on the inventory system next session and getting items picked up.
+
+END SESSION
+
