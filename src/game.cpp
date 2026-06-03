@@ -13,8 +13,8 @@ Game::Game()
     brandonSprite = LoadTexture("assets/hero/msprite2.png");
 
     brandonPos = {75.0f, -50.0f};
-    brandonTarget = {700.0f, 5.0f};
-    brandyPos = {350.0f, 150.0f};
+    brandonTarget = {800.0f, 50.0f};
+    brandyPos = {375.0f, 200.0f};
 
     playerPos = {300.0f, 300.0f};
     playerSpeed = 3.0f;
@@ -40,7 +40,7 @@ void Game::Update()
     {
         if(introState == WALK_IN)
         {
-            if(brandonPos.y < 5)
+            if(brandonPos.y < 50)
             {
                 brandonPos.y += 2.0f;
             }
@@ -64,7 +64,7 @@ void Game::Update()
 
         if(introState == WALK_DOWN)
         {
-            if(brandonPos.y < 150)
+            if(brandonPos.y < 200)
             {
                 brandonPos.y += 2;
             }
@@ -122,10 +122,8 @@ void Game::Update()
 }
 void Game::Draw()
 {
-    float brandyScale = 0.25f;
-    float brandonScale = 0.25f;
-
-    Vector2 brandyPos = {350.0f, 150.0f};
+    float brandyScale = 0.20f;
+    float brandonScale = 0.20f;
 
     if(currentState == INTRO_ROOM)
     {

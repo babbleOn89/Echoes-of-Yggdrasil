@@ -1,13 +1,14 @@
 
-# Name in Progress - DEVELOPMENT LOG
+# Echo's of Yggdrasil - DEVELOPMENT LOG
 
 # Project Goal
 
-A 2D fantasy wizard game built with C++ and raylib featuring playable wizards, enemy variants, turn-based combat systems, and cartoon fantasy visuals.
+A 2D fantasy rpg
 
 ---
 
-# DATE: 2026-05-28
+# DATE: 
+* 2026-05-28
 
 # Session Length
 
@@ -72,7 +73,8 @@ END SESSION
 
 ---
 
-# DATE: 2026-05-23
+# DATE: 
+* 2026-05-23
 
 # Session Length
 
@@ -125,6 +127,7 @@ Combat framework is functional and ready for expansion.
 
 END SESSION
 
+## RESTRUCTRUING OCCURS HERE!
 
 # DATE: 2026-06-01
 
@@ -191,6 +194,7 @@ END SESSION
 
 # End Session Notes
 * probably focus more on the inventory system next session and getting items picked up.
+* Change the title from "Shadows" to "Echo's" because I'm dumb and forgot my own title...
 
 END SESSION
 
