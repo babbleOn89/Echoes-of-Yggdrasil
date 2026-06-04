@@ -7,11 +7,13 @@ I don't know what else to put here at the moment. You can:
 #compile with 
 
 ```bash
-g++ src/*.cpp -o build/echos -lraylib
+g++ src/*.cpp -o echoes -lraylib
 ```
 
 #run
-./ygg
+```bash
+./echoes
+```
 
 right now:
 * view the intro

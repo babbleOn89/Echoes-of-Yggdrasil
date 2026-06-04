@@ -5,7 +5,7 @@
 Farmstead::Farmstead()
 {
     background = LoadTexture("assets/world_ui/farm_one.png");
-
+    brandonSprite = LoadTexture("assets/heros/msprite2.png");
     scaleX = 2.0f;
     scaleY = 1.5f;
 
@@ -49,7 +49,7 @@ void Farmstead::Draw(
             0.0f,
             WHITE
             );
-
+    
     player.Draw(playerSprite, playerScale);
 
     EndMode2D();
