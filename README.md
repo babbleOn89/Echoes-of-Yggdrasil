@@ -1,4 +1,4 @@
-Thank you for checking out Echo's of Yggdrasil!
+Thank you for checking out Echoes of Yggdrasil!
 
 This is, so far, just a work in progress. 
 
@@ -16,5 +16,5 @@ g++ src/*.cpp -o build/echos -lraylib
 right now:
 * view the intro
 * select your character
-* move around the farmhouse greenscreen
+* move around the farm area
 * move the character through the tutorial map with W,A,S,D
