@@ -122,6 +122,7 @@ void Game::Update()
 
     else if(currentState == FARMSTEAD)
     {
+        farmstead.UpdateCompanion();
         farmstead.UpdateCamera(player.GetPosition());
     }
 }
@@ -156,7 +157,7 @@ void Game::Draw()
                 DrawText("Brandon: I can lift a bag of seed! Besides, I'm a Viking no matter "
                         "what, it's our heritage", 130, 630, 22, WHITE);
             if(dialogueIndex == 2)
-                DrawText("Brandy: Come to think about it, I've only ever fall "
+                DrawText("Brandy: Come to think about it, I've only ever seen you fall "
                         " off of boats", 130, 630, 22, WHITE);
             if(dialogueIndex == 3)
                 DrawText("Parent: You two better get to bed. You have a lot to do in the morning!",
@@ -191,6 +192,9 @@ void Game::Draw()
 
     else if(currentState == LOSS_SCENE)
     {
+        DrawRectangle(100, 600, 1200, 150, BLACK);
+        DrawRectangleLines(100, 600, 1200, 150, WHITE);
+
         if(chosenCharacter == 0)
         {
             DrawText("Brandy: aw man!", 130, 630, 22, WHITE);
@@ -205,11 +209,11 @@ void Game::Draw()
     {
         if(chosenCharacter == 0)
         {
-            farmstead.Draw(brandySprite, brandyScale, player);
+            farmstead.Draw(brandySprite, brandyScale, brandonSprite, brandonScale, player);
         }
         else if(chosenCharacter == 1)
         {
-            farmstead.Draw(brandonSprite, brandonScale, player);
+            farmstead.Draw(brandonSprite, brandonScale, brandySprite, brandyScale, player);
         }
     }
 }

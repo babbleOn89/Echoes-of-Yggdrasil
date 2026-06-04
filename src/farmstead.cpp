@@ -5,9 +5,14 @@
 Farmstead::Farmstead()
 {
     background = LoadTexture("assets/world_ui/farm_one.png");
-    brandonSprite = LoadTexture("assets/heros/msprite2.png");
     scaleX = 2.0f;
     scaleY = 1.5f;
+
+    companionPosition = {1900.0f, 350.0f};
+    companionTopY = 350.0f;
+    companionBottomY = 500.0f;
+    companionSpeed = 1.0f;
+    companionDirection = 1;
 
     mapWidth = GetScreenWidth() * scaleX;
     mapHeight = GetScreenHeight() * scaleY;
@@ -36,6 +41,8 @@ void Farmstead::UpdateCamera(Vector2 playerPosition)
 void Farmstead::Draw(
         Texture2D playerSprite,
         float playerScale,
+        Texture2D companionSprite,
+        float companionScale,
         const Player& player
         )
 {
@@ -49,8 +56,31 @@ void Farmstead::Draw(
             0.0f,
             WHITE
             );
+    DrawTextureEx(
+            companionSprite,
+            companionPosition,
+            0.0f,
+            companionScale,
+            WHITE
+            );
     
     player.Draw(playerSprite, playerScale);
 
     EndMode2D();
 }
+
+void Farmstead::UpdateCompanion()
+{
+    companionPosition.y += companionSpeed * companionDirection;
+
+    if(companionPosition.y >= companionBottomY)
+    {
+        companionDirection = -1;
+    }
+
+    if(companionPosition.y <= companionTopY)
+    {
+        companionDirection = 1;
+    }
+}
+

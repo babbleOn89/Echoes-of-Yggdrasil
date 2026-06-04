@@ -14,6 +14,7 @@ public:
 
 private:
     Vector2 position;
+
     float speed;
     float scale;
 };
