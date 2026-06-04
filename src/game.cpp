@@ -7,23 +7,22 @@ Game::Game()
     currentState = INTRO_ROOM;
 
     introRoom = LoadTexture("assets/world_ui/intro.png");
-    characterSelect = LoadTexture("assets/world_ui/title.png");
+    characterSelect = LoadTexture("assets/world_ui/char_select.png");
 
     brandySprite = LoadTexture("assets/hero/fsprite2.png");
     brandonSprite = LoadTexture("assets/hero/msprite2.png");
 
     brandonPos = {75.0f, -50.0f};
     brandonTarget = {800.0f, 50.0f};
-    brandyPos = {375.0f, 200.0f};
+    brandyPos = {390.0f, 250.0f};
 
-    playerPos = {300.0f, 300.0f};
-    playerSpeed = 3.0f;
-    
     selectedCharacter = 0;
     chosenCharacter = -1;
 
     introState = WALK_IN;
     dialogueIndex = 0;
+
+
 }
 
 Game::~Game()
@@ -38,6 +37,11 @@ void Game::Update()
 {
     if(currentState == INTRO_ROOM)
     {
+        if(IsKeyPressed(KEY_N))
+        {
+            currentState = CHARACTER_SELECT;
+        }
+
         if(introState == WALK_IN)
         {
             if(brandonPos.y < 50)
@@ -106,23 +110,24 @@ void Game::Update()
             currentState = LOSS_SCENE;
         }
     }
+
     else if(currentState == LOSS_SCENE)
     {
         if(IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE))
         {
+            player.SetPosition({500.0f, 750.0f});
             currentState = FARMSTEAD;
         }
     }
 
     else if(currentState == FARMSTEAD)
     {
-
+        farmstead.UpdateCamera(player.GetPosition());
     }
-
 }
 void Game::Draw()
 {
-    float brandyScale = 0.20f;
+    float brandyScale = 0.16f;
     float brandonScale = 0.20f;
 
     if(currentState == INTRO_ROOM)
@@ -198,15 +203,13 @@ void Game::Draw()
 
     else if(currentState == FARMSTEAD)
     {
-        DrawRectangle(0, 0, 1400, 800, GREEN); 
-
         if(chosenCharacter == 0)
         {
-            DrawTextureEx(brandySprite, playerPos, 0.0f, brandyScale, WHITE);
+            farmstead.Draw(brandySprite, brandyScale, player);
         }
         else if(chosenCharacter == 1)
         {
-            DrawTextureEx(brandonSprite, playerPos, 0.0f, brandonScale, WHITE);
+            farmstead.Draw(brandonSprite, brandonScale, player);
         }
     }
 }
@@ -215,22 +218,7 @@ void Game::HandleInput()
 {
     if(currentState == FARMSTEAD)
     {
-        if(IsKeyDown(KEY_W))
-        {
-            playerPos.y -= playerSpeed;
-        }
-        else if(IsKeyDown(KEY_S))
-        {
-            playerPos.y += playerSpeed;
-        }
-        else if(IsKeyDown(KEY_A))
-        {
-            playerPos.x -= playerSpeed;
-        }
-        else if(IsKeyDown(KEY_D))
-        {
-            playerPos.x += playerSpeed;
-        }
+        player.HandleInput();
     }
 }
             

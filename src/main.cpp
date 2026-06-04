@@ -10,8 +10,8 @@ int main()
 
     while(!WindowShouldClose())
     {
-        game.Update();
         game.HandleInput();
+        game.Update();
 
         BeginDrawing();
         ClearBackground(BLACK);

@@ -7,6 +7,62 @@ A 2D fantasy rpg
 
 ---
 
+
+
+# DATE: 
+* 2026-05-23
+
+# Session Length
+
+Not Recorded
+
+# Goals For Session
+
+* Incorporate attack/battle system
+* Add battle timer
+* Create dialogue prototype
+
+# Completed
+
+* Added attack selection system
+* Added battle timer
+* Added dialogue prototype
+* Established basic combat flow
+
+# Problems Encountered
+
+* No major issues encountered
+
+# Solutions / Discoveries
+
+* Confirmed combat loop structure is viable
+* Established foundation for future combat systems
+
+# Ideas For Later
+
+* Better dialogue scripting
+* Mana/AP system
+* Health system
+
+# Commands / Build Notes
+
+```bash
+clear && g++ *.cpp -o StupidWizards -lraylib
+```
+
+# Files Modified
+
+* game.cpp
+* game.hpp
+* hero.cpp
+* enemy.cpp
+
+# End Session Notes
+
+Combat framework is functional and ready for expansion.
+
+END SESSION
+
 # DATE: 
 * 2026-05-28
 
@@ -73,63 +129,10 @@ END SESSION
 
 ---
 
-# DATE: 
-* 2026-05-23
-
-# Session Length
-
-Not Recorded
-
-# Goals For Session
-
-* Incorporate attack/battle system
-* Add battle timer
-* Create dialogue prototype
-
-# Completed
-
-* Added attack selection system
-* Added battle timer
-* Added dialogue prototype
-* Established basic combat flow
-
-# Problems Encountered
-
-* No major issues encountered
-
-# Solutions / Discoveries
-
-* Confirmed combat loop structure is viable
-* Established foundation for future combat systems
-
-# Ideas For Later
-
-* Better dialogue scripting
-* Mana/AP system
-* Health system
-
-# Commands / Build Notes
-
-```bash
-clear && g++ *.cpp -o StupidWizards -lraylib
-```
-
-# Files Modified
-
-* game.cpp
-* game.hpp
-* hero.cpp
-* enemy.cpp
-
-# End Session Notes
-
-Combat framework is functional and ready for expansion.
-
-END SESSION
-
 ## RESTRUCTRUING OCCURS HERE!
 
-# DATE: 2026-06-01
+# DATE: 
+* 2026-06-01
 
 # Session Length
 
@@ -195,6 +198,49 @@ END SESSION
 # End Session Notes
 * probably focus more on the inventory system next session and getting items picked up.
 * Change the title from "Shadows" to "Echo's" because I'm dumb and forgot my own title...
+
+END SESSION
+
+# DATE:
+* 2026-06-03
+
+# Goals For Session
+* implement prototype of farm map
+* clean up the code so it isn't so cluttered
+* some character sprite redesigns
+
+# Problems Encountered
+* I couldn't get the camera to move nor could I get the camera to move with the player.
+
+# Solutions / Discoveries
+* class for camera update with it locked to the player position.
+
+# Ideas For Later
+* inventory system
+* dialogue for the tutorial system
+* some sprites of chickens
+
+# Commands / Build Notes
+to compile
+```
+g++ src/*.cpp -o echoes -lraylib
+```
+
+to run:
+```
+ ./echoes
+```
+
+# Files Modified
+* game.cpp
+* game.hpp
+* player.hpp
+* player.cpp
+* farmstead.hpp
+* farmstead.cpp
+* main.cpp
+
+# End Session Notes
 
 END SESSION
 

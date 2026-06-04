@@ -17,3 +17,4 @@ right now:
 * view the intro
 * select your character
 * move around the farmhouse greenscreen
+* move the character through the tutorial map with W,A,S,D

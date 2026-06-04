@@ -1,4 +1,6 @@
 #pragma once
+#include "player.hpp"
+#include "farmstead.hpp"
 #include <raylib.h>
 
 enum GameState
@@ -28,12 +30,13 @@ class Game
         void Draw();
         void HandleInput();
 
-        //Player player;
-
     private:
         int selectedCharacter;
         int chosenCharacter;
         int dialogueIndex;
+        
+        Player player;
+        Farmstead farmstead;
 
         GameState currentState;
         IntroState introState;
@@ -48,6 +51,4 @@ class Game
         Vector2 brandonTarget;
         Vector2 brandyPos;
         
-        Vector2 playerPos;
-        float playerSpeed;
 };
