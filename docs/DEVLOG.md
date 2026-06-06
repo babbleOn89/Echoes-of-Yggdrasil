@@ -244,3 +244,40 @@ to run:
 
 END SESSION
 
+# DATE:
+* 2026-06-04
+
+# Goals For Session
+* refactor everything and get the bluprint for other features setup
+* implement tutorial dialogue
+* implement basic control prototype
+* implement inventory prototype
+* implement basic item prototype
+
+# Problems Encountered
+* All the problems. Like, literally. Typos, duplicate functions, missing lines. This was a much more daunting task than I originally had planned lol.
+
+# Solutions / Discoveries
+* just make the file from the start. don't "i'll just see if I get it to work" a bunch of features that you eventually have to move.
+
+# Ideas For Later
+* clean up the inventory layout so it loads the item image
+* SPACEBAR for attack.
+* Up arrow for spell "feed chickum" (in this case)
+# Commands / Build Notes
+to compile
+```
+g++ src/*.cpp -o echoes -lraylib
+```
+
+to run:
+```
+ ./echoes
+```
+
+# Files Modified
+* All of them and then some.
+
+# End Session Notes
+
+END SESSION

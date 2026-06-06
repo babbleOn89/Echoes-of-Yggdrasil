@@ -12,4 +12,15 @@ namespace Dialogue
         "Brandon: Rock, paper, scissors for who has to feed the chickens?",
         "Brandy: You're on!"
     };
+    const std::vector<std::string> tutorialLines =
+    {
+        "Use WASD to move around.",
+        "Go pick up some seed from the container.",
+        "Use SPACEBAR to interact.",
+        "Press E to open your inventory.",
+        "Use WASD to move around your inventory. Press SPACEBAR to equip the seeds.",
+        "Press E to close inventory.",
+        "Go and feed the chickens.",
+        "Press UP ARROW to feed chickens."
+    };
 }

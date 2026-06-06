@@ -39,6 +39,7 @@ void Game::Update()
     }
     else if(currentState == FARMSTEAD)
     {
+        farmstead.UpdateTutorial(player, inventory.IsOpen());
         farmstead.UpdateCompanion();
         farmstead.UpdateCamera(player.GetPosition());
     }
@@ -55,6 +56,15 @@ void Game::Draw()
             farmstead.Draw(brandySprite, brandyScale, brandonSprite, brandonScale, player);
         else if(chosenCharacter == 1)
             farmstead.Draw(brandonSprite, brandonScale, brandySprite, brandyScale, player);
+
+        if(inventory.IsOpen())
+        {
+            inventory.Draw(player);
+        }
+        if(farmstead.ShouldDrawTutorialUI())
+        {
+            farmstead.DrawTutorialUI();
+        }
     }
 }
 
@@ -62,7 +72,21 @@ void Game::HandleInput()
 {
     if(currentState == FARMSTEAD)
     {
-        player.HandleInput();
+        if(IsKeyPressed(KEY_E))
+        {
+            inventory.Toggle();
+        }
+
+        if(inventory.IsOpen())
+        {
+            //inventory controls
+            return;
+        }
+
+        if(farmstead.CanPlayerMove())
+        {
+            player.HandleInput();
+        }
     }
 }
             

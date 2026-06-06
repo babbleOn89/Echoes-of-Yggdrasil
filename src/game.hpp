@@ -1,4 +1,5 @@
 #pragma once
+#include "inventory.hpp"
 #include "player.hpp"
 #include "farmstead.hpp"
 #include "intro.hpp"
@@ -19,6 +20,8 @@ class Game
         void Update();
         void Draw();
         void HandleInput();
+
+        Inventory inventory;
 
     private:
         int chosenCharacter;
