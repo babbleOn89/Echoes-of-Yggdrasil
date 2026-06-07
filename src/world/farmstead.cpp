@@ -1,7 +1,7 @@
-#include "farmstead.hpp"
-#include "character_data.hpp"
-#include "dialogue.hpp"
-#include "items.hpp"
+#include "world/farmstead.hpp"
+#include "stats/character_data.hpp"
+#include "ui/dialogue.hpp"
+#include "gear/gear.hpp"
 #include <raymath.h>
 
 
@@ -20,7 +20,7 @@ Farmstead::Farmstead()
     mapWidth = GetScreenWidth() * scaleX;
     mapHeight = GetScreenHeight() * scaleY;
 
-    camera = {0};
+    camera = {};
     camera.offset = {
         GetScreenWidth() / 2.0f,
         GetScreenHeight() / 2.0f
@@ -36,11 +36,15 @@ Farmstead::Farmstead()
     seedContainerArea = {1050, 425, 200, 75};
     chickumCoopArea = {1700, 213, 1000, 192};
 
+    coolStickTexture = LoadTexture("assets/gear/reallycoolstick.png");
+    coolStickPickedUp = false;
+
 }
 
 Farmstead::~Farmstead()
 {
     UnloadTexture(background);
+    UnloadTexture(coolStickTexture);
 }
 
 void Farmstead::UpdateCamera(Vector2 playerPosition)
@@ -73,31 +77,41 @@ void Farmstead::Draw(
             companionScale,
             WHITE
             );
-    Item seedBag = GetItemData(ItemType::REALLY_COOL_STICK);
+    Gear coolStick = GetGearData(GearType::REALLY_COOL_STICK);
 
-    DrawRectangleLines(
-            seedBag.pickupArea.x,
-            seedBag.pickupArea.y,
-            seedBag.pickupArea.width,
-            seedBag.pickupArea.height,
-            RED
-            );
+    // stick hitbox debug
+    //DrawRectangleLines(
+    //        coolStick.pickupArea.x,
+    //        coolStick.pickupArea.y,
+    //        coolStick.pickupArea.width,
+    //        coolStick.pickupArea.height,
+    //        RED
+    //        );
 
-    DrawCircle(seedBag.position.x, seedBag.position.y, 20, YELLOW);
-    
+    if(!coolStickPickedUp)
+    {
+        DrawTextureEx(
+                coolStickTexture,
+                coolStick.position,
+                0.0f,
+                0.10f,
+                WHITE
+                );
+    }
+
     player.Draw(playerSprite, playerScale);
     
     //Debug coords
 
-    //Vector2 pos = player.GetPosition();
+    Vector2 pos = player.GetPosition();
 
-    //DrawText(
-    //        TextFormat("X: %.0f Y: %.0f", pos.x, pos.y),
-    //        pos.x - 50,
-    //        pos.y - 100,
-    //        50,
-    //        SKYBLUE
-    //        );
+    DrawText(
+            TextFormat("X: %.0f Y: %.0f", pos.x, pos.y),
+            pos.x - 50,
+            pos.y - 100,
+            50,
+            SKYBLUE
+            );
 
     EndMode2D();
     
@@ -204,4 +218,17 @@ void Farmstead::DrawTutorialUI()
 bool Farmstead::ShouldDrawTutorialUI() const
 {
     return tutorialTimer <= 0.0f && tutorialState != TUTORIAL_DONE;
+}
+
+void Farmstead::UpdatePickups(Player& player)
+{
+    Gear coolStick = GetGearData(GearType::REALLY_COOL_STICK);
+
+    if(!coolStickPickedUp &&
+            CheckCollisionPointRec(player.GetPosition(), coolStick.pickupArea) &&
+            IsKeyPressed(KEY_SPACE))
+    {
+        player.AddGear(GearType::REALLY_COOL_STICK);
+        coolStickPickedUp = true;
+    }
 }

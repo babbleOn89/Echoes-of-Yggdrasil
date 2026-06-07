@@ -1,4 +1,4 @@
-#include "player.hpp"
+#include "entities/player.hpp"
 
 Player::Player()
 {
@@ -6,7 +6,7 @@ Player::Player()
     speed = 3.0f;
     scale = 0.20f;
 
-    equippedItem = ItemType::NONE;
+    equippedGear = GearType::NONE;
     equippedSpell = SpellType::NONE;
 }
 
@@ -42,36 +42,36 @@ void Player::SetPosition(Vector2 newPosition)
     position = newPosition;
 }
 
-void Player::AddItem(ItemType item)
+void Player::AddGear(GearType gear)
 {
-    inventory.push_back(item);
+    inventory.push_back(gear);
 }
 
-bool Player::HasItem(ItemType item) const
+bool Player::HasGear(GearType gear) const
 {
-    for(ItemType currentItem : inventory)
+    for(GearType currentGear : inventory)
     {
-        if(currentItem == item)
+        if(currentGear == gear)
             return true;
     }
 
     return false;
 }
 
-void Player::EquipItem(ItemType item)
+void Player::EquipGear(GearType gear)
 {
-    if(HasItem(item))
+    if(HasGear(gear))
     {
-        equippedItem = item;
+        equippedGear = gear;
     }
 }
 
-ItemType Player::GetEquippedItem() const
+GearType Player::GetEquippedGear() const
 {
-    return equippedItem;
+    return equippedGear;
 }
 
-const std::vector<ItemType>& Player::GetInventory() const
+const std::vector<GearType>& Player::GetInventory() const
 {
     return inventory;
 }

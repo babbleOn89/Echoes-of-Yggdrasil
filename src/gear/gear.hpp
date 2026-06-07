@@ -2,15 +2,15 @@
 #include <string>
 #include <raylib.h>
 
-enum class ItemType
+enum class GearType
 {
     NONE,
     REALLY_COOL_STICK
 };
 
-struct Item
+struct Gear
 {
-    ItemType type;
+    GearType type;
     std::string name;
     std::string description;
     std::string texturePath;
@@ -20,5 +20,5 @@ struct Item
     bool pickedUp;
 };
 
-Item GetItemData(ItemType type);
+Gear GetGearData(GearType type);
 

@@ -1,7 +1,6 @@
 #pragma once
-
+#include "entities/player.hpp"
 #include <raylib.h>
-#include "player.hpp"
 
 class Inventory
 {

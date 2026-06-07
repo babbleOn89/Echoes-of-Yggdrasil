@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include <iostream>
-#include "game.hpp"
-#include "character_data.hpp"
+#include "core/game.hpp"
+#include "stats/character_data.hpp"
 
 Game::Game()
 {
@@ -40,6 +40,7 @@ void Game::Update()
     else if(currentState == FARMSTEAD)
     {
         farmstead.UpdateTutorial(player, inventory.IsOpen());
+        farmstead.UpdatePickups(player);
         farmstead.UpdateCompanion();
         farmstead.UpdateCamera(player.GetPosition());
     }

@@ -1,8 +1,8 @@
 #pragma once
-#include "inventory.hpp"
-#include "player.hpp"
-#include "farmstead.hpp"
-#include "intro.hpp"
+#include "ui/inventory.hpp"
+#include "entities/player.hpp"
+#include "world/farmstead.hpp"
+#include "world/intro.hpp"
 #include <raylib.h>
 
 enum GameState

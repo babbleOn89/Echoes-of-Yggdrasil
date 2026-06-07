@@ -1,4 +1,4 @@
-#include "dialogue.hpp"
+#include "ui/dialogue.hpp"
 
 namespace Dialogue
 {
@@ -12,6 +12,7 @@ namespace Dialogue
         "Brandon: Rock, paper, scissors for who has to feed the chickens?",
         "Brandy: You're on!"
     };
+
     const std::vector<std::string> tutorialLines =
     {
         "Use WASD to move around.",
@@ -22,5 +23,10 @@ namespace Dialogue
         "Press E to close inventory.",
         "Go and feed the chickens.",
         "Press UP ARROW to feed chickens."
+    };
+
+    const std::vector<std::string> siblingLines =
+    {
+        "Don't forget to shut the gate this time!"
     };
 }

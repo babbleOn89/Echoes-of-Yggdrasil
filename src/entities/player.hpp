@@ -1,8 +1,8 @@
 #pragma once
+#include "gear/gear.hpp"
+#include "magic/spells.hpp"
 #include <raylib.h>
 #include <vector>
-#include "items.hpp"
-#include "magic.hpp"
 
 class Player
 {
@@ -15,11 +15,11 @@ public:
     Vector2 GetPosition() const;
     void SetPosition(Vector2 newPosition);
 
-    void AddItem(ItemType item);
-    bool HasItem(ItemType item) const;
-    void EquipItem(ItemType item);
-    ItemType GetEquippedItem() const;
-    const std::vector<ItemType>& GetInventory() const;
+    void AddGear(GearType item);
+    bool HasGear(GearType item) const;
+    void EquipGear(GearType gear);
+    GearType GetEquippedGear() const;
+    const std::vector<GearType>& GetInventory() const;
 
     void AddSpell(SpellType spell);
     bool HasSpell(SpellType spell) const;
@@ -32,8 +32,8 @@ private:
     float speed;
     float scale;
 
-    std::vector<ItemType> inventory;
-    ItemType equippedItem;
+    std::vector<GearType> inventory;
+    GearType equippedGear;
 
     std::vector<SpellType> spellbook;
     SpellType equippedSpell;

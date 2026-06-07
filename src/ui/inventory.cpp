@@ -1,6 +1,6 @@
-#include "inventory.hpp"
-#include "items.hpp"
-#include "magic.hpp"
+#include "ui/inventory.hpp"
+#include "gear/gear.hpp"
+#include "magic/spells.hpp"
 
 Inventory::Inventory()
 {
@@ -31,16 +31,16 @@ void Inventory::Draw(const Player& player) const
     DrawText("SPELLS", 180, 420, 28, PURPLE);
     DrawText("GEAR", 950, 180, 28, GOLD);
 
-    const std::vector<ItemType>& items = player.GetInventory();
+    const std::vector<GearType>& gear = player.GetInventory();
     const std::vector<SpellType>& spells = player.GetSpells();
 
-    int itemY = 230;
+    int gearY = 230;
 
-    for(ItemType itemType : items)
+    for(GearType gearType : gear)
     {
-        Item item = GetItemData(itemType);
-        DrawText(item.name.c_str(), 200, itemY, 24, WHITE);
-        itemY += 35;
+        Gear gear = GetGearData(gearType);
+        DrawText(gear.name.c_str(), 200, gearY, 24, WHITE);
+        gearY += 35;
     }
 
     int spellY = 470;

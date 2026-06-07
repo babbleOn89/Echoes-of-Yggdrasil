@@ -1,6 +1,6 @@
 #pragma once
+#include "entities/player.hpp"
 #include <raylib.h>
-#include "player.hpp"
 
 enum TutorialState
 {
@@ -33,8 +33,12 @@ public:
     void UpdateTutorial(Player& player, bool inventoryOpen);
     void DrawTutorialUI();
 
+    void UpdatePickups(Player& player);
+
     bool CanPlayerMove() const;
     bool ShouldDrawTutorialUI() const;
+    
+    Texture2D coolStickTexture;
 
 
 private:
@@ -55,6 +59,8 @@ private:
     TutorialState tutorialState;
     float tutorialTimer;
     bool playerCanMove;
+
+    bool coolStickPickedUp;
 
     Rectangle seedContainerArea;
     Rectangle chickumCoopArea;

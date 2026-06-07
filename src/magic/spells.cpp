@@ -1,4 +1,4 @@
-#include "magic.hpp"
+#include "magic/spells.hpp"
 
 Spell GetSpellData(SpellType type)
 {

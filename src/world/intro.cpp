@@ -1,6 +1,6 @@
-#include "intro.hpp"
-#include "dialogue.hpp"
-#include "character_data.hpp"
+#include "world/intro.hpp"
+#include "ui/dialogue.hpp"
+#include "stats/character_data.hpp"
 
 IntroScene::IntroScene()
 {
@@ -132,9 +132,21 @@ void IntroScene::Draw(Texture2D introRoom,
         DrawRectangleLines(100, 600, 1200, 150, WHITE);
 
         if(chosenCharacter == 0)
-            DrawText("Brandy: aw man!", 130, 630, 22, WHITE);
+            DrawText("Brandy: aw man! \n\n"
+                    "\nBrandon: And you better remember to close the gate this time!",
+                    130,
+                    630,
+                    22,
+                    WHITE
+                    );
         else if(chosenCharacter == 1)
-            DrawText("Brandon: aw man!", 130, 630, 22, WHITE);
+            DrawText("Brandon: aw man! \n\n"
+                    "\nBrandy: And you better remember to close the gate this time!",
+                     130,
+                     630,
+                     22,
+                     WHITE
+                     );
     }
 }
 

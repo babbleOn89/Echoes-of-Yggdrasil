@@ -1,14 +1,15 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17
+CXXFLAGS = -Wall -Wextra -std=c++17 -Isrc
+LIBS = -lraylib
 
-SRC = $(wildcard src/*.cpp)
-TARGET = build/echoes_of_yggdrasil
+SRC = $(shell find src -name "*.cpp")
+OUT = build/echoes
 
 all:
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) -lraylib
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(OUT) $(LIBS)
 
 run: all
-	./$(TARGET)
+	./$(OUT)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(OUT)
