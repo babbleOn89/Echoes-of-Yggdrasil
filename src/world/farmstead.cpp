@@ -2,6 +2,7 @@
 #include "stats/character_data.hpp"
 #include "ui/dialogue.hpp"
 #include "gear/gear.hpp"
+#include "core/controls.hpp"
 #include <raymath.h>
 
 
@@ -20,24 +21,18 @@ Farmstead::Farmstead()
     mapWidth = GetScreenWidth() * scaleX;
     mapHeight = GetScreenHeight() * scaleY;
 
-    camera = {};
-    camera.offset = {
-        GetScreenWidth() / 2.0f,
-        GetScreenHeight() / 2.0f
-        };
-    camera.target = {700.0f, 500.0f};
-    camera.rotation = 0.0f;
-    camera.zoom = 1.0f;
-
     tutorialState = TUTORIAL_WASD;
     tutorialTimer = 3.0f;
     playerCanMove = false;
 
-    seedContainerArea = {1050, 425, 200, 75};
+    seedContainerArea = {1120, 345, 100, 50};
     chickumCoopArea = {1700, 213, 1000, 192};
 
     coolStickTexture = LoadTexture("assets/gear/reallycoolstick.png");
     coolStickPickedUp = false;
+    
+    seedsTexture = LoadTexture("assets/spells/seeds.png");
+    seedsPickedUp = false;
 
 }
 
@@ -45,6 +40,7 @@ Farmstead::~Farmstead()
 {
     UnloadTexture(background);
     UnloadTexture(coolStickTexture);
+    UnloadTexture(seedsTexture);
 }
 
 void Farmstead::UpdateCamera(Vector2 playerPosition)
@@ -60,8 +56,6 @@ void Farmstead::Draw(
         const Player& player
         )
 {
-    BeginMode2D(camera);
-
     DrawTexturePro(
             background,
             Rectangle{0, 0, (float)background.width, (float)background.height},
@@ -79,6 +73,17 @@ void Farmstead::Draw(
             );
     Gear coolStick = GetGearData(GearType::REALLY_COOL_STICK);
 
+    //Debug coords
+    Vector2 pos = player.GetPosition();
+
+    DrawText(
+            TextFormat("X: %.0f Y: %.0f", pos.x, pos.y),
+            pos.x - 50,
+            pos.y - 100,
+            50,
+            SKYBLUE
+            );
+
     // stick hitbox debug
     //DrawRectangleLines(
     //        coolStick.pickupArea.x,
@@ -87,6 +92,25 @@ void Farmstead::Draw(
     //        coolStick.pickupArea.height,
     //        RED
     //        );
+
+    // seed hitbox debug
+    DrawCircle(seedContainerArea.x, seedContainerArea.y, 6, RED);
+
+    DrawRectangleLines(
+            seedContainerArea.x,
+            seedContainerArea.y,
+            seedContainerArea.width,
+            seedContainerArea.height,
+            GREEN
+            );
+    
+    // interact point debug
+    DrawCircle(
+            pos.x,
+            pos.y - 40.0f ,
+            8,
+            RED
+            );
 
     if(!coolStickPickedUp)
     {
@@ -99,22 +123,18 @@ void Farmstead::Draw(
                 );
     }
 
+    if(!seedsPickedUp)
+    {
+        DrawTextureEx(
+                seedsTexture,
+                {1130, 260},
+                0.0f,
+                0.07f,
+                WHITE
+                );
+    }
+
     player.Draw(playerSprite, playerScale);
-    
-    //Debug coords
-
-    Vector2 pos = player.GetPosition();
-
-    DrawText(
-            TextFormat("X: %.0f Y: %.0f", pos.x, pos.y),
-            pos.x - 50,
-            pos.y - 100,
-            50,
-            SKYBLUE
-            );
-
-    EndMode2D();
-    
 }
 
 void Farmstead::UpdateCompanion()
@@ -132,12 +152,12 @@ void Farmstead::UpdateCompanion()
     }
 }
 
-void Farmstead::UpdateTutorial(Player& player, bool inventoryOpen)
+void Farmstead::UpdateTutorial(Player& player)
 {
     if(tutorialTimer > 0)
     {
         tutorialTimer -= GetFrameTime();
-        playerCanMove = false;
+        playerCanMove = tutorialState != TUTORIAL_WASD;
         return;
     }
 
@@ -145,46 +165,74 @@ void Farmstead::UpdateTutorial(Player& player, bool inventoryOpen)
 
     Vector2 pos = player.GetPosition();
 
+    // Use player's "feet"/center-ish point instead of raw top-left position
+    Vector2 interactPoint = {
+        pos.x + 20.0f,
+        pos.y + 10.0f
+    };
+
     if(tutorialState == TUTORIAL_WASD)
     {
-        if(IsKeyDown(KEY_W) ||
-           IsKeyDown(KEY_A) ||
-           IsKeyDown(KEY_S) ||
-           IsKeyDown(KEY_D))
+        if(Controls::Up() ||
+           Controls::Down() ||
+           Controls::Left() ||
+           Controls::Right())
         {
             tutorialState = TUTORIAL_GET_SEED;
-            tutorialTimer = 0.0f;
         }
     }
 
     else if(tutorialState == TUTORIAL_GET_SEED)
     {
-        if(CheckCollisionPointRec(pos, seedContainerArea))
+        if(CheckCollisionPointRec(interactPoint, seedContainerArea))
         {
+            player.AddSpell(SpellType::SEEDS);
+            player.EquipSpell(SpellType::SEEDS);
+
             tutorialState = TUTORIAL_PICK_UP_SEED;
-            tutorialTimer = 0.0f;
+            tutorialTimer = 3.0f;
         }
     }
+
     else if(tutorialState == TUTORIAL_PICK_UP_SEED)
     {
-        
-        player.AddSpell(SpellType::SEEDS);
-        player.EquipSpell(SpellType::SEEDS);
-
-        tutorialState = TUTORIAL_GO_FEED_CHICKUMS;
-        tutorialTimer = 0.0f;
+        tutorialState = TUTORIAL_STICK;
+        tutorialTimer = 5.0f;
     }
-    else if(tutorialState == TUTORIAL_GO_FEED_CHICKUMS)
+
+    else if(tutorialState == TUTORIAL_STICK)
     {
-        if(CheckCollisionPointRec(pos, chickumCoopArea))
+        if(player.HasGear(GearType::REALLY_COOL_STICK))
         {
-            tutorialState = TUTORIAL_FEED_CHICKUMS;
+            player.EquipGear(GearType::REALLY_COOL_STICK);
+
+            tutorialState = TUTORIAL_SWING_STICK;
+            tutorialTimer = 0.3f;
         }
     }
+
+    else if(tutorialState == TUTORIAL_SWING_STICK)
+    {
+        if(Controls::MeleePressed())
+        {
+            tutorialState = TUTORIAL_GO_FEED_CHICKUMS;
+            tutorialTimer = 2.0f;
+        }
+    }
+
+    else if(tutorialState == TUTORIAL_GO_FEED_CHICKUMS)
+    {
+        if(CheckCollisionPointRec(interactPoint, chickumCoopArea))
+        {
+            tutorialState = TUTORIAL_FEED_CHICKUMS;
+            tutorialTimer = 3.0f;
+        }
+    }
+
     else if(tutorialState == TUTORIAL_FEED_CHICKUMS)
     {
-        if(IsKeyPressed(KEY_UP) &&
-           player.GetEquippedSpell() == SpellType::SEEDS)
+        if(Controls::SpellUpPressed() &&
+           player.GetEquippedSpell() == SpellType::SEEDS)  
         {
             tutorialState = TUTORIAL_DONE;
         }
@@ -217,7 +265,7 @@ void Farmstead::DrawTutorialUI()
 
 bool Farmstead::ShouldDrawTutorialUI() const
 {
-    return tutorialTimer <= 0.0f && tutorialState != TUTORIAL_DONE;
+    return tutorialState != TUTORIAL_DONE;
 }
 
 void Farmstead::UpdatePickups(Player& player)
@@ -226,9 +274,14 @@ void Farmstead::UpdatePickups(Player& player)
 
     if(!coolStickPickedUp &&
             CheckCollisionPointRec(player.GetPosition(), coolStick.pickupArea) &&
-            IsKeyPressed(KEY_SPACE))
+            Controls::InteractPressed())
     {
         player.AddGear(GearType::REALLY_COOL_STICK);
         coolStickPickedUp = true;
     }
 }
+
+float Farmstead::GetMapWidth() const  { return mapWidth; }
+
+float Farmstead::GetMapHeight() const { return mapHeight; }
+

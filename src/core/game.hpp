@@ -3,6 +3,7 @@
 #include "entities/player.hpp"
 #include "world/farmstead.hpp"
 #include "world/intro.hpp"
+#include "core/cameraRig.hpp"
 #include <raylib.h>
 
 enum GameState
@@ -22,6 +23,7 @@ class Game
         void HandleInput();
 
         Inventory inventory;
+        CameraRig camera;
 
     private:
         int chosenCharacter;

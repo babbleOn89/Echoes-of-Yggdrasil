@@ -15,13 +15,14 @@ namespace Dialogue
 
     const std::vector<std::string> tutorialLines =
     {
-        "Use WASD to move around.",
+        "Use W A S D to move around.",
         "Go pick up some seed from the container.",
-        "Use SPACEBAR to interact.",
-        "Press E to open your inventory.",
-        "Use WASD to move around your inventory. Press SPACEBAR to equip the seeds.",
-        "Press E to close inventory.",
-        "Go and feed the chickens.",
+        "Hey look! A really cool stick! \n "
+            "You should probably go pick it up",
+        "Press Q to pick up the stick",
+        "Give it a SWING with SPACEBAR",
+        "Okay. Enough Distractions \n"
+            "Time to go and feed the chickens.",
         "Press UP ARROW to feed chickens."
     };
 

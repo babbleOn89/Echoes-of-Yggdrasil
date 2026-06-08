@@ -10,14 +10,14 @@ enum class GearType
 
 struct Gear
 {
-    GearType type;
-    std::string name;
-    std::string description;
-    std::string texturePath;
+    GearType type = GearType::NONE;
+    std::string name = "";
+    std::string description = "";
+    std::string texturePath = "";;
 
-    Vector2 position;
-    Rectangle pickupArea;
-    bool pickedUp;
+    Vector2 position = {0.0f, 0.0f};
+    Rectangle pickupArea = {0.0f, 0.0f, 0.0f, 0.0f};
+    bool pickedUp = false;
 };
 
 Gear GetGearData(GearType type);

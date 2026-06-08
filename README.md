@@ -20,3 +20,7 @@ right now:
 * select your character
 * move around the farm area
 * move the character through the tutorial map with W,A,S,D
+* collect the bag of seed and perform the spell cast action UP ARROW
+* pick up a really cool stick with Q
+* perform the swing action with SPACE
+

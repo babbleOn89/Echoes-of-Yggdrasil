@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <iostream>
+#include "core/controls.hpp"
 #include "core/game.hpp"
 #include "stats/character_data.hpp"
 
@@ -14,6 +15,10 @@ Game::Game()
     brandonSprite = LoadTexture("assets/hero/msprite2.png");
 
     chosenCharacter = -1;
+    
+    camera.Update(player.GetPosition(),
+            farmstead.GetMapWidth(), 
+            farmstead.GetMapHeight());
 }
 
 Game::~Game()
@@ -39,10 +44,14 @@ void Game::Update()
     }
     else if(currentState == FARMSTEAD)
     {
-        farmstead.UpdateTutorial(player, inventory.IsOpen());
+        farmstead.UpdateTutorial(player);
         farmstead.UpdatePickups(player);
         farmstead.UpdateCompanion();
-        farmstead.UpdateCamera(player.GetPosition());
+        camera.Update(
+                player.GetPosition(),
+                farmstead.GetMapWidth(),
+                farmstead.GetMapHeight()
+                );
     }
 }
 void Game::Draw()
@@ -53,10 +62,14 @@ void Game::Draw()
     }
     else if(currentState == FARMSTEAD)
     {
+        BeginMode2D(camera.Get());
+
         if(chosenCharacter == 0)
             farmstead.Draw(brandySprite, brandyScale, brandonSprite, brandonScale, player);
         else if(chosenCharacter == 1)
             farmstead.Draw(brandonSprite, brandonScale, brandySprite, brandyScale, player);
+        
+        EndMode2D();
 
         if(inventory.IsOpen())
         {
@@ -73,7 +86,7 @@ void Game::HandleInput()
 {
     if(currentState == FARMSTEAD)
     {
-        if(IsKeyPressed(KEY_E))
+        if(Controls::InventoryPressed())
         {
             inventory.Toggle();
         }

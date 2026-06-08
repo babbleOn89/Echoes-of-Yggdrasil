@@ -7,9 +7,8 @@ enum TutorialState
     TUTORIAL_WASD,
     TUTORIAL_GET_SEED,
     TUTORIAL_PICK_UP_SEED,
-    TUTORIAL_OPEN_INVENTORY,
-    TUTORIAL_EQUIP_SEED,
-    TUTORIAL_CLOSE_INVENTORY,
+    TUTORIAL_STICK,
+    TUTORIAL_SWING_STICK,
     TUTORIAL_GO_FEED_CHICKUMS,
     TUTORIAL_FEED_CHICKUMS,
     TUTORIAL_DONE
@@ -30,7 +29,7 @@ public:
               const Player& player);
 
     void UpdateCompanion();
-    void UpdateTutorial(Player& player, bool inventoryOpen);
+    void UpdateTutorial(Player& player);
     void DrawTutorialUI();
 
     void UpdatePickups(Player& player);
@@ -39,7 +38,10 @@ public:
     bool ShouldDrawTutorialUI() const;
     
     Texture2D coolStickTexture;
+    Texture2D seedsTexture;
 
+    float GetMapWidth() const;
+    float GetMapHeight() const;
 
 private:
     Texture2D background;
@@ -61,6 +63,7 @@ private:
     bool playerCanMove;
 
     bool coolStickPickedUp;
+    bool seedsPickedUp;
 
     Rectangle seedContainerArea;
     Rectangle chickumCoopArea;

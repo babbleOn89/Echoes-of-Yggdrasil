@@ -8,7 +8,7 @@ Spell GetSpellData(SpellType type)
             SpellType::SEEDS,
             "Seeds",
             "A small bag of chicken feed.",
-            "assets/items/seeds.png",
+            "assets/spells/seeds.png",
         };
     }
 
