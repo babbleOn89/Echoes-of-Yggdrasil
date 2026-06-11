@@ -1,8 +1,8 @@
-#include <raylib.h>
-#include <iostream>
-#include "core/controls.hpp"
+#include "ui/controls.hpp"
 #include "core/game.hpp"
 #include "stats/character_data.hpp"
+#include <raylib.h>
+#include <iostream>
 
 Game::Game()
 {
@@ -70,6 +70,8 @@ void Game::Draw()
             farmstead.Draw(brandonSprite, brandonScale, brandySprite, brandyScale, player);
         
         EndMode2D();
+
+        hud.Draw(100, 100, 100, 100);
 
         if(inventory.IsOpen())
         {

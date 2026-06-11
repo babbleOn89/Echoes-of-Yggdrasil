@@ -1,5 +1,6 @@
 #pragma once
 #include "ui/inventory.hpp"
+#include "ui/hud.hpp"
 #include "entities/player.hpp"
 #include "world/farmstead.hpp"
 #include "world/intro.hpp"
@@ -24,6 +25,7 @@ class Game
 
         Inventory inventory;
         CameraRig camera;
+        HUD hud;
 
     private:
         int chosenCharacter;

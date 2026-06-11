@@ -1,8 +1,8 @@
 #include "world/farmstead.hpp"
 #include "stats/character_data.hpp"
 #include "ui/dialogue.hpp"
+#include "ui/controls.hpp"
 #include "gear/gear.hpp"
-#include "core/controls.hpp"
 #include <raymath.h>
 
 
@@ -74,15 +74,15 @@ void Farmstead::Draw(
     Gear coolStick = GetGearData(GearType::REALLY_COOL_STICK);
 
     //Debug coords
-    Vector2 pos = player.GetPosition();
+    //Vector2 pos = player.GetPosition();
 
-    DrawText(
-            TextFormat("X: %.0f Y: %.0f", pos.x, pos.y),
-            pos.x - 50,
-            pos.y - 100,
-            50,
-            SKYBLUE
-            );
+    //DrawText(
+    //        TextFormat("X: %.0f Y: %.0f", pos.x, pos.y),
+    //        pos.x - 50,
+    //        pos.y - 100,
+    //        50,
+    //        SKYBLUE
+    //        );
 
     // stick hitbox debug
     //DrawRectangleLines(
@@ -94,23 +94,23 @@ void Farmstead::Draw(
     //        );
 
     // seed hitbox debug
-    DrawCircle(seedContainerArea.x, seedContainerArea.y, 6, RED);
+    //DrawCircle(seedContainerArea.x, seedContainerArea.y, 6, RED);
 
-    DrawRectangleLines(
-            seedContainerArea.x,
-            seedContainerArea.y,
-            seedContainerArea.width,
-            seedContainerArea.height,
-            GREEN
-            );
+    //DrawRectangleLines(
+    //        seedContainerArea.x,
+    //        seedContainerArea.y,
+    //        seedContainerArea.width,
+    //        seedContainerArea.height,
+    //        GREEN
+    //        );
     
     // interact point debug
-    DrawCircle(
-            pos.x,
-            pos.y - 40.0f ,
-            8,
-            RED
-            );
+    //DrawCircle(
+    //        pos.x,
+    //        pos.y - 40.0f ,
+    //        8,
+    //        RED
+    //        );
 
     if(!coolStickPickedUp)
     {
@@ -248,19 +248,9 @@ void Farmstead::DrawTutorialUI()
 {
     if(tutorialState == TUTORIAL_DONE)
         return;
-    
-    DrawRectangle(100, 600, 1200, 150, BLACK);
-    DrawRectangleLines(100, 600, 1200, 150, WHITE);
+    int lineIndex = (int) tutorialState;
 
-    int lineIndex = (int)tutorialState;
-
-    DrawText(
-            Dialogue::tutorialLines[lineIndex].c_str(),
-            130,
-            630,
-            24,
-            WHITE
-            );
+    Dialogue::DrawBox(Dialogue::tutorialLines[lineIndex]);
 }
 
 bool Farmstead::ShouldDrawTutorialUI() const

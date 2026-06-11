@@ -2,6 +2,31 @@
 
 namespace Dialogue
 {
+    void DrawBox(const std::string& text)
+    {
+        int boxWidth = 700;
+        int boxHeight = 150;
+
+        int leftBoundary = 340;
+        int rightBoundary = GetScreenWidth() - 180;
+
+        int availableWidth = rightBoundary - leftBoundary;
+
+        int boxX = 430;
+        int boxY = GetScreenHeight() - boxHeight - 40;
+
+        DrawRectangle(boxX, boxY, boxWidth, boxHeight, BLUE);
+        DrawRectangleLines(boxX, boxY, boxWidth, boxHeight, WHITE);
+
+        DrawText(
+                text.c_str(),
+                boxX + 30,
+                boxY + 30,
+                24,
+                WHITE
+                );
+    }
+
     const std::vector<std::string> introLines=
     {
         "Brandy: You know, a real viking probably could have lifted that whole bag of seed.",
