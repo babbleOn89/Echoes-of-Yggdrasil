@@ -2,15 +2,18 @@
 #include "ui/inventory.hpp"
 #include "ui/hud.hpp"
 #include "entities/player.hpp"
-#include "world/farmstead.hpp"
 #include "world/intro.hpp"
+#include "world/farmstead.hpp"
+#include "world/bosstutorial.hpp"
 #include "core/cameraRig.hpp"
+#include "stats/character_data.hpp"
 #include <raylib.h>
 
 enum GameState
 {
     INTRO_ROOM,
-    FARMSTEAD
+    FARMSTEAD,
+    BOSS_TUTORIAL
 };
 
 class Game
@@ -27,12 +30,16 @@ class Game
         CameraRig camera;
         HUD hud;
 
+        std::string GetPlayerName() const;
+        std::string GetCompanionName() const;
+
     private:
         int chosenCharacter;
         
         Player player;
-        Farmstead farmstead;
         IntroScene introScene;
+        Farmstead farmstead;
+        Meadow meadow;
 
         GameState currentState;
 

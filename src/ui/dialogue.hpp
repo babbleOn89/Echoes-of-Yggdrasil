@@ -11,5 +11,11 @@ namespace Dialogue
 
     extern const std::vector<std::string> siblingLines;
 
-    void DrawBox(const std::string& text);
+    enum BoxPosition
+    {
+        BOX_BOTTOM,
+        BOX_TOP
+    };
+
+    void DrawBox(const std::string& text, BoxPosition = BOX_BOTTOM);
 }

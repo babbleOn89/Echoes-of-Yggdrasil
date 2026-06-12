@@ -281,3 +281,45 @@ to run:
 # End Session Notes
 
 END SESSION
+
+# DATE:
+* 2026-06-11
+
+# Goals For Session
+* Set up the boss fight tutorial framework
+* create the prototypes for boss arena sprites.
+* Split the dialogue between chosen character and companion
+
+# Problems Encountered
+* Mostly typos and duplicate code.
+
+# Solutions / Discoveries
+* I created the option to have a dialog box appear on either the top or bottom of the sceen
+* 
+
+# Ideas For Later
+* Make the boss sprite move around on screen
+* create hitboxes
+* set up dialogue for the end of the tutorial
+* move the plot forward
+# Commands / Build Notes
+to compile
+```
+g++ src/*.cpp -o echoes -lraylib
+```
+(this is also an option)
+```
+make run
+```
+
+to run:
+```
+ ./echoes
+```
+
+# Files Modified
+* All of them and then some.
+
+# End Session Notes
+
+END SESSION

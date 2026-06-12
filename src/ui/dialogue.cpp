@@ -2,20 +2,23 @@
 
 namespace Dialogue
 {
-    void DrawBox(const std::string& text)
+    void DrawBox(const std::string& text, BoxPosition position)
     {
         int boxWidth = 700;
         int boxHeight = 150;
 
-        int leftBoundary = 340;
-        int rightBoundary = GetScreenWidth() - 180;
-
-        int availableWidth = rightBoundary - leftBoundary;
+        //int leftBoundary = 340;
+        //int rightBoundary = GetScreenWidth() - 180;
 
         int boxX = 430;
         int boxY = GetScreenHeight() - boxHeight - 40;
 
-        DrawRectangle(boxX, boxY, boxWidth, boxHeight, BLUE);
+        if(position == BOX_TOP)
+        {
+            boxY = 40;
+        }
+
+        DrawRectangle(boxX, boxY, boxWidth, boxHeight, BLACK);
         DrawRectangleLines(boxX, boxY, boxWidth, boxHeight, WHITE);
 
         DrawText(
@@ -48,7 +51,9 @@ namespace Dialogue
         "Give it a SWING with SPACEBAR",
         "Okay. Enough Distractions \n"
             "Time to go and feed the chickens.",
-        "Press UP ARROW to feed chickens."
+        "Press UP ARROW to feed chickens.",
+        "BACKAW!!!",
+        ":{COMPANION} You forgot to close the gate!"
     };
 
     const std::vector<std::string> siblingLines =

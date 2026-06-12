@@ -1,5 +1,5 @@
 #pragma once
-#include "entities/player.hpp"
+#include "world/world.hpp"
 #include <raylib.h>
 
 enum TutorialState
@@ -11,41 +11,43 @@ enum TutorialState
     TUTORIAL_SWING_STICK,
     TUTORIAL_GO_FEED_CHICKUMS,
     TUTORIAL_FEED_CHICKUMS,
+    TUTORIAL_CHICKUM_PANIC,
+    TUTORIAL_GO_NORTH,
     TUTORIAL_DONE
 };
 
-class Farmstead
+class Farmstead : public World
 {
 public:
     Farmstead();
     ~Farmstead();
 
-    void UpdateCamera(Vector2 playerPosition);
+    void Update(Player& player) override;
 
     void Draw(Texture2D playerSprite,
               float playerScale,
               Texture2D companionSprite,
               float companionScale,
-              const Player& player);
+              const Player& player) override;
 
-    void UpdateCompanion();
-    void UpdateTutorial(Player& player);
     void DrawTutorialUI();
-
-    void UpdatePickups(Player& player);
 
     bool CanPlayerMove() const;
     bool ShouldDrawTutorialUI() const;
-    
-    Texture2D coolStickTexture;
-    Texture2D seedsTexture;
 
     float GetMapWidth() const;
     float GetMapHeight() const;
 
 private:
+    void UpdateCompanion();
+    void UpdateTutorial(Player& player);
+    void UpdatePickups(Player& player);
+
+private:
     Texture2D background;
-    Camera2D camera;
+
+    Texture2D coolStickTexture;
+    Texture2D seedsTexture;
 
     float scaleX;
     float scaleY;

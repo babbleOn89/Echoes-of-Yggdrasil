@@ -8,7 +8,7 @@
 
 Farmstead::Farmstead()
 {
-    background = LoadTexture("assets/world_ui/farm_one.png");
+    background = LoadTexture("assets/world/farm_one.png");
     scaleX = 2.0f;
     scaleY = 1.5f;
 
@@ -22,7 +22,7 @@ Farmstead::Farmstead()
     mapHeight = GetScreenHeight() * scaleY;
 
     tutorialState = TUTORIAL_WASD;
-    tutorialTimer = 3.0f;
+    tutorialTimer = 1.5f;
     playerCanMove = false;
 
     seedContainerArea = {1120, 345, 100, 50};
@@ -43,9 +43,11 @@ Farmstead::~Farmstead()
     UnloadTexture(seedsTexture);
 }
 
-void Farmstead::UpdateCamera(Vector2 playerPosition)
+void Farmstead::Update(Player& player)
 {
-    camera.target = playerPosition; 
+    UpdateTutorial(player);
+    UpdatePickups(player);
+    UpdateCompanion();
 }
 
 void Farmstead::Draw(
@@ -234,8 +236,19 @@ void Farmstead::UpdateTutorial(Player& player)
         if(Controls::SpellUpPressed() &&
            player.GetEquippedSpell() == SpellType::SEEDS)  
         {
-            tutorialState = TUTORIAL_DONE;
+            tutorialState = TUTORIAL_CHICKUM_PANIC;
+            tutorialTimer = 2.5f;
         }
+    }
+    else if(tutorialState == TUTORIAL_CHICKUM_PANIC)
+    {
+        tutorialState = TUTORIAL_GO_NORTH;
+        tutorialTimer = 3.0f;
+    }
+    else if(tutorialState == TUTORIAL_GO_NORTH)
+    {
+        tutorialState = TUTORIAL_DONE;
+        tutorialTimer = 2.0f;
     }
 }
 
@@ -248,9 +261,20 @@ void Farmstead::DrawTutorialUI()
 {
     if(tutorialState == TUTORIAL_DONE)
         return;
-    int lineIndex = (int) tutorialState;
 
-    Dialogue::DrawBox(Dialogue::tutorialLines[lineIndex]);
+    int lineIndex = (int)tutorialState;
+
+    if(tutorialState == TUTORIAL_CHICKUM_PANIC)
+    {
+        Dialogue::DrawBox(
+                Dialogue::tutorialLines[lineIndex],
+                Dialogue::BOX_TOP
+                );
+    }
+    else
+    {
+        Dialogue::DrawBox(Dialogue::tutorialLines[lineIndex]);
+    }
 }
 
 bool Farmstead::ShouldDrawTutorialUI() const
