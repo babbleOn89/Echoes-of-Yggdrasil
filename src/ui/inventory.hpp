@@ -2,6 +2,7 @@
 #include "entities/player.hpp"
 #include <raylib.h>
 
+//handles inventory display and visibility
 class Inventory
 {
 public:
@@ -13,5 +14,6 @@ public:
     void Draw(const Player& player) const;
 
 private:
+    //tracks whether the inventory window is open
     bool isOpen;
 };

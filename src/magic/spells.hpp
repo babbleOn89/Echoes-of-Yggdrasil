@@ -1,13 +1,14 @@
 #pragma once
 #include <string>
-#include <raylib.h>
 
+//type of spells the player can learn/equip
 enum class SpellType
 {
     NONE,
     SEEDS
 };
 
+//stores display/data info for a spell
 struct Spell
 {
     SpellType type;
@@ -16,6 +17,7 @@ struct Spell
     std::string texturePath;
 };
 
+//return the data associated with spell type
 Spell GetSpellData(SpellType type);
 
 

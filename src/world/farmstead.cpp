@@ -5,6 +5,7 @@
 #include "gear/gear.hpp"
 #include <raymath.h>
 
+// SETUP //
 
 Farmstead::Farmstead()
 {
@@ -25,7 +26,10 @@ Farmstead::Farmstead()
     tutorialTimer = 1.5f;
     playerCanMove = false;
 
+    //interraction zone for seed container by the house
     seedContainerArea = {1120, 345, 100, 50};
+
+    //interraction area covering the chicken coop fence line
     chickumCoopArea = {1700, 213, 1000, 192};
 
     coolStickTexture = LoadTexture("assets/gear/reallycoolstick.png");
@@ -42,6 +46,8 @@ Farmstead::~Farmstead()
     UnloadTexture(coolStickTexture);
     UnloadTexture(seedsTexture);
 }
+
+//Main Update / Draw //
 
 void Farmstead::Update(Player& player)
 {
@@ -139,6 +145,8 @@ void Farmstead::Draw(
     player.Draw(playerSprite, playerScale);
 }
 
+//companion walks up and down near the garden
+//makes the farm feel more alive
 void Farmstead::UpdateCompanion()
 {
     companionPosition.y += companionSpeed * companionDirection;
@@ -154,8 +162,13 @@ void Farmstead::UpdateCompanion()
     }
 }
 
+// Tutorial State //
+
 void Farmstead::UpdateTutorial(Player& player)
 {
+    //during the tutorial message delays I temporarily pause
+    //state progression. Only the initial state locks
+    //movement completely.
     if(tutorialTimer > 0)
     {
         tutorialTimer -= GetFrameTime();
@@ -167,7 +180,9 @@ void Farmstead::UpdateTutorial(Player& player)
 
     Vector2 pos = player.GetPosition();
 
-    // Use player's "feet"/center-ish point instead of raw top-left position
+    //player position is sprite-based and doesn't line up
+    //perfectly with the world interactions. offset toward
+    //the character's feet so pickups feel natural.
     Vector2 interactPoint = {
         pos.x + 20.0f,
         pos.y + 10.0f
@@ -242,6 +257,7 @@ void Farmstead::UpdateTutorial(Player& player)
     }
     else if(tutorialState == TUTORIAL_CHICKUM_PANIC)
     {
+        //short beat before directing the player north
         tutorialState = TUTORIAL_GO_NORTH;
         tutorialTimer = 3.0f;
     }
@@ -256,6 +272,8 @@ bool Farmstead::CanPlayerMove() const
 {
     return playerCanMove;
 }
+
+// Tutorial UI //
 
 void Farmstead::DrawTutorialUI()
 {
@@ -282,10 +300,14 @@ bool Farmstead::ShouldDrawTutorialUI() const
     return tutorialState != TUTORIAL_DONE;
 }
 
+// Pickups //
+
 void Farmstead::UpdatePickups(Player& player)
 {
     Gear coolStick = GetGearData(GearType::REALLY_COOL_STICK);
 
+    //player needs to press "Q" to pick up the stick; seeds are
+    //picked up automatically.
     if(!coolStickPickedUp &&
             CheckCollisionPointRec(player.GetPosition(), coolStick.pickupArea) &&
             Controls::InteractPressed())

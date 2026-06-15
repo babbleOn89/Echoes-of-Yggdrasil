@@ -2,6 +2,8 @@
 #include "world/world.hpp"
 #include <raylib.h>
 
+//tutorial steps for the farmstead intro sequence
+//order matters: enum values are used as dialogue line indexes
 enum TutorialState
 {
     TUTORIAL_WASD,
@@ -16,6 +18,9 @@ enum TutorialState
     TUTORIAL_DONE
 };
 
+//farmstead world area
+//handles background drawing, companion movement, pickups,
+//and the first tutorial sequence
 class Farmstead : public World
 {
 public:
@@ -39,34 +44,39 @@ public:
     float GetMapHeight() const;
 
 private:
+    //internal farmstead systems
     void UpdateCompanion();
     void UpdateTutorial(Player& player);
     void UpdatePickups(Player& player);
 
-private:
+    //world visuals
     Texture2D background;
-
     Texture2D coolStickTexture;
     Texture2D seedsTexture;
-
+    
+    //world dimensions
     float scaleX;
     float scaleY;
     float mapWidth;
     float mapHeight;
 
+    //companion patrol data
     Vector2 companionPosition;
     float companionTopY;
     float companionBottomY;
     float companionSpeed;
     int companionDirection;
-
+    
+    //tutorial state tracking
     TutorialState tutorialState;
     float tutorialTimer;
     bool playerCanMove;
-
+    
+    //pickup state
     bool coolStickPickedUp;
     bool seedsPickedUp;
-
+    
+    //interaction zones
     Rectangle seedContainerArea;
     Rectangle chickumCoopArea;
 };

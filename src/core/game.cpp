@@ -31,6 +31,8 @@ Game::~Game()
     UnloadTexture(brandonSprite);
 }
 
+//GAME STATE UPDATES
+
 void Game::Update()
 {
     if(currentState == INTRO_ROOM)
@@ -40,7 +42,10 @@ void Game::Update()
         if(introScene.IsFinished())
         {
             chosenCharacter = introScene.GetChosenCharacter();
+
+            //spawn player near farmhouse entrance after intro
             player.SetPosition({500.0f, 750.0f});
+            
             currentState = FARMSTEAD;
         }
 
@@ -59,6 +64,8 @@ void Game::Update()
 
         Vector2 playerPos = player.GetPosition();
 
+        //leaving the north edge of the farm transitions
+        //the player to the tutorial boss arena
         if(playerPos.y <= 120.0f)
         {
             player.SetPosition({700.0f, 1200.0f});
@@ -71,7 +78,9 @@ void Game::Update()
     if(currentState == BOSS_TUTORIAL)
     {
         meadow.Update(player);
-
+        
+        //temporary meadow world size.
+        //replace with actual dimensions later
         camera.Update(
                 player.GetPosition(),
                 1400,
@@ -81,6 +90,8 @@ void Game::Update()
         return;
     }
 }
+
+//RENDERING
 
 void Game::Draw()
 {
@@ -160,6 +171,8 @@ void Game::Draw()
         farmstead.DrawTutorialUI();
     }
 }
+
+//INPUT HANDLING
 
 void Game::HandleInput()
 {

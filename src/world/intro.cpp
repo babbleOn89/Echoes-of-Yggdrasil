@@ -2,6 +2,7 @@
 #include "ui/dialogue.hpp"
 #include "stats/character_data.hpp"
 
+//intitial cutscene setup
 IntroScene::IntroScene()
 {
     introState = WALK_IN;
@@ -16,12 +17,14 @@ IntroScene::IntroScene()
 }
 
 void IntroScene::Update()
-{
+{   
+    //skip to character select for debugging
     if(IsKeyPressed(KEY_N))
     {
         introState = CHARACTER_SELECT;
     }
-
+    
+    //brandon walks in
     if(introState == WALK_IN)
     {
         if(brandonPos.y < 50)
@@ -29,6 +32,8 @@ void IntroScene::Update()
         else
             introState = WALK_TO_TABLE;
     }
+
+    //brandon walks toward table
     else if(introState == WALK_TO_TABLE)
     {
         if(brandonPos.x < brandonTarget.x)
@@ -36,6 +41,8 @@ void IntroScene::Update()
         else
             introState = WALK_DOWN;
     }
+
+    //brandon moves into position for dialogue
     else if(introState == WALK_DOWN)
     {
         if(brandonPos.y < 200)
@@ -43,18 +50,23 @@ void IntroScene::Update()
         else
             introState = INTRO_DIALOGUE;
     }
+
+    //advance dialogue with SPACE or ENTER
     else if(introState == INTRO_DIALOGUE)
     {
         if(IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER))
         {
             dialogueIndex++;
-
+            
+            //move to character selection after the final dialogue line
             if(dialogueIndex >= (int)Dialogue::introLines.size())
             {
                 introState = CHARACTER_SELECT;
             }
         }
     }
+
+    //Character select
     else if(introState == CHARACTER_SELECT)
     {
         if(IsKeyPressed(KEY_LEFT))
@@ -69,6 +81,8 @@ void IntroScene::Update()
             introState = LOSS_SCENE;
         }
     }
+    
+    //temporary dialogue before gameplay begins
     else if(introState == LOSS_SCENE)
     {
         if(IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE))
@@ -84,6 +98,7 @@ void IntroScene::Draw(Texture2D introRoom,
                       Texture2D brandonSprite)
 {
 
+    //draw intro cutscene states
     if(introState == WALK_IN ||
        introState == WALK_TO_TABLE ||
        introState == WALK_DOWN ||
@@ -100,7 +115,8 @@ void IntroScene::Draw(Texture2D introRoom,
 
         DrawTextureEx(brandySprite, brandyPos, 0.0f, brandyScale, WHITE);
         DrawTextureEx(brandonSprite, brandonPos, 0.0f, brandonScale, WHITE);
-
+        
+        //draw dialogue box during intro conversation
         if(introState == INTRO_DIALOGUE)
         {
             DrawRectangle(100, 600, 1200, 150, BLACK);
@@ -109,6 +125,8 @@ void IntroScene::Draw(Texture2D introRoom,
             DrawText(Dialogue::introLines[dialogueIndex].c_str(), 130, 630, 22, WHITE);
         }
     }
+
+    //character selection screen
     else if(introState == CHARACTER_SELECT)
     {
         DrawTexturePro(
@@ -126,6 +144,8 @@ void IntroScene::Draw(Texture2D introRoom,
         if(selectedCharacter == 1)
             DrawRectangleLines(1000, 600, 250, 150, RED);
     }
+
+    //tutorial setup scene
     else if(introState == LOSS_SCENE)
     {
         DrawRectangle(100, 600, 1200, 150, BLACK);

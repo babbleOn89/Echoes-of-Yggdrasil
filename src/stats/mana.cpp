@@ -25,6 +25,7 @@ bool Mana::HasEnough(int cost) const
 
 bool Mana::Spend(int cost)
 {
+    //prevents mana from going negative
     if(!HasEnough(cost))
         return false;
 
@@ -35,19 +36,21 @@ bool Mana::Spend(int cost)
 void Mana::Recharge(int amount)
 {
     currentMana += amount;
-
+    
+    //prevents mana from exceeding the maximum
     if(currentMana > maxMana)
         currentMana = maxMana;
 }
 
 void Mana::Update(float dt)
 {
+    //regenerate 10 mana every 2 seconds
     rechargeTimer+= dt;
 
     if(rechargeTimer >= 2.0f)
     {
         Recharge(10);
-        rechargeTimer = 0.0f;
+        rechargeTimer -= 2.0f;
     }
 }
 

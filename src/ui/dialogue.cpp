@@ -2,8 +2,10 @@
 
 namespace Dialogue
 {
+    //draw a dialogue box at either the top or bottom of the screen
     void DrawBox(const std::string& text, BoxPosition position)
     {
+        //default dialogue box dimensions
         int boxWidth = 700;
         int boxHeight = 150;
 
@@ -12,7 +14,8 @@ namespace Dialogue
 
         int boxX = 430;
         int boxY = GetScreenHeight() - boxHeight - 40;
-
+        
+        //move dialogue box to top of the screen when necessary
         if(position == BOX_TOP)
         {
             boxY = 40;
@@ -29,7 +32,8 @@ namespace Dialogue
                 WHITE
                 );
     }
-
+    
+    //intro cutscene dialogue
     const std::vector<std::string> introLines=
     {
         "Brandy: You know, a real viking probably could have lifted that whole bag of seed.",
@@ -40,7 +44,8 @@ namespace Dialogue
         "Brandon: Rock, paper, scissors for who has to feed the chickens?",
         "Brandy: You're on!"
     };
-
+    
+    //tutorial dialogue
     const std::vector<std::string> tutorialLines =
     {
         "Use W A S D to move around.",
@@ -55,7 +60,8 @@ namespace Dialogue
         "BACKAW!!!",
         ":{COMPANION} You forgot to close the gate!"
     };
-
+    
+    //sibling lines
     const std::vector<std::string> siblingLines =
     {
         "Don't forget to shut the gate this time!"

@@ -1,5 +1,6 @@
 #include "ui/controls.hpp"
 
+//centralized input handling
 namespace Controls
 {
     bool Up()                { return IsKeyDown(KEY_W); }

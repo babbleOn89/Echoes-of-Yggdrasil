@@ -3,16 +3,23 @@
 
 int main()
 {
+    //create game window and sets frame rate
     InitWindow(1400, 800, "Echos of Yggdrasil");
     SetTargetFPS(60);
-
+    
+    //main game object
     Game game;
-
+    
+    //main game loop
     while(!WindowShouldClose())
     {
+        //handle player input
         game.HandleInput();
-        game.Update();
 
+        //update game logic
+        game.Update();
+        
+        //render current frame
         BeginDrawing();
         ClearBackground(BLACK);
 
@@ -21,6 +28,7 @@ int main()
         EndDrawing();
     }
 
+    //clean up window resources
     CloseWindow();
 
     return 0;

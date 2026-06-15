@@ -1,16 +1,22 @@
 #pragma once
 #include <string>
 
+//playable character optionss
 enum CharacterType
 {
     BRANDON,
     BRANDY
 };
 
+//character-specific data used throughout the game
 struct CharacterData
 {
     CharacterType type;
+
+    //display name shown in dialogue and UI
     std::string name;
+
+    //sprite draw scale
     float scale;
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 
+//it's like health, but for magic.
 class Mana
 {
 public:

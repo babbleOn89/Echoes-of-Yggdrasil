@@ -1,6 +1,8 @@
 #pragma once
 #include "world/world.hpp"
+#include "entities/enemies.hpp"
 
+//progression states for the tutorial boss encounter
 enum BossRoomState
 {
     FOX_ENCOUNTER,
@@ -12,6 +14,8 @@ enum BossRoomState
     SOME_EXPLAINING,
     BOSSROOM_END
 };
+
+//tutorial boss arena
 
 class Meadow : public World
 {
@@ -28,12 +32,19 @@ public:
             const Player& player) override;
 
 private:
+    //controls progression through the boss tutorial sequence
     BossRoomState bossRoomState;
-
+    
+    //meadow background texture
     Texture2D background;
-
+    
+    //tutorial boss instance
+    FoxBoss fox;
+    
+    //world scaling
     float scaleX;
     float scaleY;
     float mapWidth;
     float mapHeight;
 };
+

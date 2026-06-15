@@ -1,4 +1,4 @@
-#include "world/bosstutorial.hpp"
+#include "world/meadow.hpp"
 #include "stats/character_data.hpp"
 #include "ui/dialogue.hpp"
 #include "ui/controls.hpp"
@@ -6,15 +6,19 @@
 #include <raymath.h>
 
 Meadow::Meadow()
+    : fox({800.0f, 600.0f}) // spawn fox in the boss arena
 {
+    //load meadow background and set world scale
     background = LoadTexture("assets/world/meadow.png");
     scaleX = 1.0f;
     scaleY = 1.5f;
-
+    
+    //calculates world dimensions from screen size and scale
     mapWidth = GetScreenWidth() * scaleX;
     mapHeight = GetScreenHeight() * scaleY;
 
-   bossRoomState = FOX_ENCOUNTER;
+    //start boss encounter
+    bossRoomState = FOX_ENCOUNTER;
 
 }
 
@@ -25,17 +29,20 @@ Meadow::~Meadow()
 
 void Meadow::Update(Player& player)
 {
-    //add the enum stuff later
+    //temporary behavior: "fox" tracks the player every frame
+    //boss state logic will control this later
+    fox.Update(player.GetPosition());
 }
 
 void Meadow::Draw(
         Texture2D playerSprite,
         float playerScale,
-        Texture2D companionSprite,
-        float companionScale,
+        Texture2D /*companionSprite*/,
+        float /*companionScale*/,
         const Player& player
         )
 {
+    //draw meadow background stretched to world size
     DrawTexturePro(
             background,
             Rectangle{0, 0, (float)background.width, (float)background.height},
@@ -44,16 +51,14 @@ void Meadow::Draw(
             0.0f,
             WHITE
             );
-    player.Draw(playerSprite, playerScale);
 
-    DrawRectangle(
-            800,
-            600,
-            64,
-            64,
-            RED
-            );
+    //draw player above the background
+    player.Draw(playerSprite, playerScale);
     
+    //draw the fox boss
+    fox.Draw();
+
+    //tempoary chickum
     DrawRectangle(
             850,
             625,
