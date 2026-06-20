@@ -130,3 +130,23 @@ const std::vector<SpellType>& Player::GetSpells() const
 {
     return spellbook;
 }
+
+int Player::GetHealth() const
+{
+    return health.GetCurrent();
+}
+
+int Player::GetMaxHealth() const
+{
+    return health.GetMax();
+}
+
+int Player::GetMana() const
+{
+    return mana.GetCurrent();
+}
+
+int Player::GetMaxMana() const
+{
+    return mana.GetMax();
+}

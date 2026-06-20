@@ -35,7 +35,6 @@ private:
     //controls progression through the boss tutorial sequence
     BossRoomState bossRoomState;
     
-    //meadow background texture
     Texture2D background;
     
     //tutorial boss instance
@@ -46,5 +45,16 @@ private:
     float scaleY;
     float mapWidth;
     float mapHeight;
+
+    float bossRoomTimer;
+
+    void UpdateFoxEncounter(Player& player, Vector2 playerPos);
+    void UpdateFoxFight(Player& player, Vector2 playerPos);
+    void UpdateMagicAwakened(Player& player);
+    void UpdateByeFox();
+    void UpdateCompanionArrives(Player& player);
+    void UpdateHiHermes();
+    void UpdateSomeExplaining();
+    void UpdateBossRoomEnd();
 };
 

@@ -20,9 +20,19 @@ Spell GetSpellData(SpellType type)
             "assets/spells/seeds.png",
         };
     }
+
+    if(type == SpellType::FLAME)
+    {
+        return {
+            SpellType::FLAME,
+            "FLAME",
+            "Ancient Gandyr Flame Awakens",
+            "assets/spells/flame.png",
+        };
+    }
     
     //fallback value for invalid spell types
-    return{
+    return {
         SpellType::NONE,
         "None",
         "No item.",

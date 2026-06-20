@@ -5,7 +5,8 @@
 enum class SpellType
 {
     NONE,
-    SEEDS
+    SEEDS,
+    FLAME
 };
 
 //stores display/data info for a spell

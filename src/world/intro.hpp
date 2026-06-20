@@ -12,6 +12,7 @@ enum IntroState
     INTRO_DONE
 };
 
+//opening cutscene and character selection sequence
 class IntroScene
 {
 public:
@@ -27,6 +28,7 @@ public:
     int GetChosenCharacter() const;
 
 private:
+    //tracks the current stage of the intro state machine
     IntroState introState;
 
     Vector2 brandonPos;

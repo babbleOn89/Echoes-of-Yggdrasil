@@ -1,6 +1,8 @@
 #pragma once
 #include "gear/gear.hpp"
 #include "magic/spells.hpp"
+#include "stats/health.hpp"
+#include "stats/mana.hpp"
 #include <raylib.h>
 #include <vector>
 
@@ -32,8 +34,20 @@ public:
     void EquipSpell(SpellType spell);
     SpellType GetEquippedSpell() const;
     const std::vector<SpellType>& GetSpells() const;
+    
+    //health info
+    int GetHealth() const;
+    int GetMaxHealth() const;
+    
+    //mana info
+    int GetMana() const;
+    int GetMaxMana() const;
 
 private:
+
+    Health health;
+    Mana mana;
+
     //player position in world
     Vector2 position;
 

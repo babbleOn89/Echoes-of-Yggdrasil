@@ -2,9 +2,30 @@
 
 HUD::HUD()
 {
+    spellIcons[SpellType::SEEDS] = LoadTexture("assets/spells/seeds.png");
+    spellIcons[SpellType::FLAME] = LoadTexture("assets/spells/flame.png");
+
+    gearIcons[GearType::REALLY_COOL_STICK] = 
+        LoadTexture("assets/gear/reallycoolstick.png");
 }
 
-void HUD::Draw(int health, int maxHealth, int mana, int maxMana) const
+HUD::~HUD()
+{
+    for(auto& pair : spellIcons)
+    {
+        UnloadTexture(pair.second);
+    }
+
+    for(auto& pair : gearIcons)
+    {
+        UnloadTexture(pair.second);
+    }
+}
+
+void HUD::Draw(int health, int maxHealth, 
+        int mana, int maxMana, 
+        SpellType upSpell, 
+        GearType equippedGear) const
 {
     //position main HUD panel near bottom-left of screen
     int panelX = 20;
@@ -23,16 +44,10 @@ void HUD::Draw(int health, int maxHealth, int mana, int maxMana) const
     DrawBar(panelX + 100, panelY + 45, 190, 18, mana, maxMana, BLUE);
     
     //equipped weapon slot placeholder
-    DrawRectangle(panelX + 15, panelY + 85, 48, 48, DARKGRAY);
-    DrawRectangleLines(panelX + 15, panelY + 85, 48, 48, WHITE);
-    DrawText("WPN", panelX + 20, panelY + 101, 14, WHITE);
-    
-    //temporary attack bar placeholder
-    DrawText("ATK", panelX + 80, panelY + 88, 16, WHITE);
-    DrawBar(panelX + 120, panelY + 90, 170, 18, 50, 100, ORANGE);
-    
+    DrawWeaponSlot(panelX + 40, panelY + 110, 26, equippedGear);
+
     //Spell slots are drawn separately on the right side
-    DrawSpellSlots();
+    DrawSpellSlots(upSpell);
 }
 
 void HUD::DrawBar(int x, int y, int width, int height, int value,
@@ -56,7 +71,7 @@ void HUD::DrawBar(int x, int y, int width, int height, int value,
     DrawRectangleLines(x, y, width, height, WHITE);
 }
 
-void HUD::DrawSpellSlots() const
+void HUD::DrawSpellSlots(SpellType upSpell) const
 {
     //starting position for diamond-shaped arrow spell layout
     int baseX = GetScreenWidth() - 170;
@@ -67,7 +82,45 @@ void HUD::DrawSpellSlots() const
     //up
     DrawRectangle(baseX + size + gap, baseY, size, size, DARKGRAY);
     DrawRectangleLines(baseX + size + gap, baseY, size, size, WHITE);
-    DrawText("^", baseX + size + gap + 17, baseY + 10, 28, WHITE);
+    Spell spell = GetSpellData(upSpell);
+
+    auto it = spellIcons.find(upSpell);
+
+    if(upSpell != SpellType::NONE && spell.texturePath != "")
+    {
+        //hud debug
+        //Color iconTint = WHITE;
+
+        //if(upSpell == SpellType::FLAME)
+        //{
+        //    iconTint = RED;
+        //}
+
+        Texture2D icon = it->second;
+
+        DrawTexturePro(
+                icon,
+                Rectangle {
+                0.0f,
+                0.0f,
+                (float)icon.width,
+                (float)icon.height
+                },
+                Rectangle {
+                (float)(baseX + size + gap + 4),
+                (float)(baseY + 4),
+                (float)(size - 8),
+                (float)(size - 8)
+                },
+                Vector2 { 0.0f, 0.0f },
+                0.0f,
+                WHITE
+                );
+    }
+    else
+    {
+        DrawText("^", baseX + size + gap + 17, baseY + 10, 28, WHITE);
+    }
 
     //left
     DrawRectangle(baseX, baseY + size + gap, size, size, DARKGRAY);
@@ -90,4 +143,35 @@ void HUD::DrawSpellSlots() const
     DrawText("v", baseX + size + gap + 17, baseY + (size + gap) * 2 + 10, 28, WHITE);
 }
 
+void HUD::DrawWeaponSlot(int centerX, int centerY, int radius, GearType equippedGear) const
+{
+    DrawCircle(centerX, centerY, radius, DARKGRAY);
+    DrawCircleLines(centerX, centerY, radius, WHITE);
 
+    auto it = gearIcons.find(equippedGear);
+
+    if(equippedGear != GearType::NONE && it != gearIcons.end())
+    {
+        Texture2D icon = it->second;
+
+        DrawTexturePro(
+                icon,
+                Rectangle {
+                0.0f,
+                0.0f,
+                (float)icon.width,
+                (float)icon.height
+                },
+                Rectangle {
+                (float)(centerX - radius + 4),
+                (float)(centerY - radius + 4),
+                (float)((radius * 2) - 8),
+                (float)((radius * 2) - 8)
+                 },
+                 Vector2 { 0.0f, 0.0f },
+                 0.0f,
+                 WHITE
+                );
+    }
+}
+                

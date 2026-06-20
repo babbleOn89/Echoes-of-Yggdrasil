@@ -1,6 +1,7 @@
 #include "ui/controls.hpp"
 #include "core/game.hpp"
 #include "stats/character_data.hpp"
+#include "magic/spells.hpp"
 #include <raylib.h>
 #include <iostream>
 
@@ -35,6 +36,20 @@ Game::~Game()
 
 void Game::Update()
 {
+    //skip to the boss tutorial
+    if(IsKeyPressed(KEY_F5))
+    {
+        player.AddSpell(SpellType::SEEDS);
+        player.EquipSpell(SpellType::SEEDS);
+
+        player.AddGear(GearType::REALLY_COOL_STICK);
+        player.EquipGear(GearType::REALLY_COOL_STICK);
+
+        player.SetPosition({800.0f, 1200.0f});
+
+        currentState = BOSS_TUTORIAL;
+    }
+
     if(currentState == INTRO_ROOM)
     {
         introScene.Update();
@@ -158,7 +173,14 @@ void Game::Draw()
 
     EndMode2D();
 
-    hud.Draw(100, 100, 100, 100);
+    hud.Draw(
+            player.GetHealth(),
+            player.GetMaxHealth(),
+            player.GetMana(),
+            player.GetMaxMana(),
+            player.GetEquippedSpell(),
+            player.GetEquippedGear()
+            );
 
     if(inventory.IsOpen())
     {
