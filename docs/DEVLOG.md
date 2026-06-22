@@ -1,5 +1,5 @@
 
-# Echo's of Yggdrasil - DEVELOPMENT LOG
+# Echoes from Yggdrasil - DEVELOPMENT LOG
 
 # Project Goal
 

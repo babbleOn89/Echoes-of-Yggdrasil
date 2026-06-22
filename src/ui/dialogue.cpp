@@ -51,8 +51,7 @@ namespace Dialogue
         "Use W A S D to move around.",
         "Go pick up some seed from the container.",
         "Hey look! A really cool stick! \n "
-            "You should probably go pick it up",
-        "Press Q to pick up the stick",
+            "You should probably go pick it up with Q.",
         "Give it a SWING with SPACEBAR",
         "Okay. Enough Distractions \n"
             "Time to go and feed the chickens.",

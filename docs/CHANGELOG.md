@@ -1,4 +1,4 @@
-## Echos of Yggdrasil - CHANGELOG
+## Echos from Yggdrasil - CHANGELOG
 ___
 
 # DATE: 2026-06-03

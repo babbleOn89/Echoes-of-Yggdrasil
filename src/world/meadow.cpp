@@ -154,6 +154,8 @@ void Meadow::UpdateByeFox()
 {
     bossRoomTimer += GetFrameTime();
 
+    //load flame shooting stuff here
+
     if(bossRoomTimer >= 2.0f)
     {
         bossRoomState = COMPANION_ARRIVES;

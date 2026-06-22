@@ -4,7 +4,7 @@
 int main()
 {
     //create game window and sets frame rate
-    InitWindow(1400, 800, "Echos of Yggdrasil");
+    InitWindow(1400, 800, "Echos from Yggdrasil");
     SetTargetFPS(60);
     
     //main game object

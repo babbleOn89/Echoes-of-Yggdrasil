@@ -206,18 +206,12 @@ void Farmstead::UpdateTutorial(Player& player)
             player.AddSpell(SpellType::SEEDS);
             player.EquipSpell(SpellType::SEEDS);
 
-            tutorialState = TUTORIAL_PICK_UP_SEED;
+            tutorialState = TUTORIAL_PICK_UP_STICK;
             tutorialTimer = 3.0f;
         }
     }
 
-    else if(tutorialState == TUTORIAL_PICK_UP_SEED)
-    {
-        tutorialState = TUTORIAL_STICK;
-        tutorialTimer = 5.0f;
-    }
-
-    else if(tutorialState == TUTORIAL_STICK)
+    else if(tutorialState == TUTORIAL_PICK_UP_STICK)
     {
         if(player.HasGear(GearType::REALLY_COOL_STICK))
         {

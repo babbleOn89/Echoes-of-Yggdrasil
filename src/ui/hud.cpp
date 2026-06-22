@@ -82,20 +82,11 @@ void HUD::DrawSpellSlots(SpellType upSpell) const
     //up
     DrawRectangle(baseX + size + gap, baseY, size, size, DARKGRAY);
     DrawRectangleLines(baseX + size + gap, baseY, size, size, WHITE);
-    Spell spell = GetSpellData(upSpell);
 
     auto it = spellIcons.find(upSpell);
 
-    if(upSpell != SpellType::NONE && spell.texturePath != "")
+    if(upSpell != SpellType::NONE && it != spellIcons.end())
     {
-        //hud debug
-        //Color iconTint = WHITE;
-
-        //if(upSpell == SpellType::FLAME)
-        //{
-        //    iconTint = RED;
-        //}
-
         Texture2D icon = it->second;
 
         DrawTexturePro(

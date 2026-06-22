@@ -1,4 +1,4 @@
-Thank you for checking out Echoes of Yggdrasil!
+Thank you for checking out Echoes from Yggdrasil!
 
 This is, so far, just a work in progress. 
 
