@@ -1,3 +1,5 @@
+##CURRENTLY ON HIATUS (ETA: 5 Days before returning to game)
+
 Thank you for checking out Echoes from Yggdrasil!
 
 This is, so far, just a work in progress. 
